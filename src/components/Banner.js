@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "../axios"; 
 import requests from '../request'; 
+import './Banner.css'
 
 function Banner() {
   const [movie, setMovie] = useState([]);
@@ -31,12 +32,16 @@ function Banner() {
                 >
             <div className="banner__contents">
                 <h1>
-                    {/* in case of an inconsistent API if this doesn't exist get the other one - ?. takes care of errors */}
+                    {/* in case of an inconsistent API if this doesn't exist get the other one - ?. (optional-chaning) takes care of errors */}
                     {movie?.title || movie?.name || movie?.original_name} 
                 </h1>
+                <div className="banner__buttons">
+                    <button className="banner__button">Play</button>
+                    <button className="banner__button">My List</button>
+                </div>
+                <h1 className="banner__description">{movie?.overview}</h1>
             </div>
          </header>;
 }
 
 export default Banner;
-
