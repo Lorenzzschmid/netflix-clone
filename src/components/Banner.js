@@ -19,6 +19,11 @@ function Banner() {
     fetchData(); 
   }, []); //we want to run it once, when the Banner-component loads - so we leave the array empty.
 
+//   snippet to limit the amount of text. "n" is a number you pass...
+  function truncate(str, n) {
+    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+  }
+
   return <header className="banner"
             style={
                 {
@@ -31,7 +36,7 @@ function Banner() {
                 }}  
                 >
             <div className="banner__contents">
-                <h1>
+                <h1 className="banner__title">
                     {/* in case of an inconsistent API if this doesn't exist get the other one - ?. (optional-chaning) takes care of errors */}
                     {movie?.title || movie?.name || movie?.original_name} 
                 </h1>
@@ -39,7 +44,8 @@ function Banner() {
                     <button className="banner__button">Play</button>
                     <button className="banner__button">My List</button>
                 </div>
-                <h1 className="banner__description">{movie?.overview}</h1>
+                {/* passed the truncate function to limit the text to 150 words */}
+                <h1 className="banner__description">{truncate(movie?.overview, 150)}</h1>
             </div>
          </header>;
 }
