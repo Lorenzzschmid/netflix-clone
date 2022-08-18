@@ -4,7 +4,7 @@ import './Row.css'
 
 const base_url = "https://image.tmdb.org/t/p/original/";
 
-function Row({ title, fetchUrl }) {
+function Row({ title, fetchUrl, isLargeRow }) {
   const [movies, setMovies] = useState([]);
 
   //When the Row component loads on the screen, I want to basically make a request to tmdb - I want to pull that information, right when that row loads. And that is going to happen in all Row-components. Passing "movies" - makes it a dependency - depending on movies changes.
@@ -29,8 +29,11 @@ function Row({ title, fetchUrl }) {
             {/**several row__poster(s) */}
 
             {movies.map(movie => (
-              <img className="row__poster"
-              src={`${base_url}${movie.poster_path}`} alt={movie.name} />
+              <img
+              //The key apart of getting rid of the console error makes the rendering of the row slightly faster. 
+              key={movie.id} 
+              className={`row__poster ${isLargeRow && "row__posterLarge"}`}
+              src={`${base_url}${isLargeRow ? movie.poster_path : movie.backdrop_path}`} alt={movie.name} />
             ))}
         
         </div>
